@@ -11,45 +11,102 @@
       <auth-filter backend="anyone"></auth-filter>
       <form-array>
         <form id="mistery">
-          <input type="text" name="password"></input>
+          <input label="password" type="text" name="password"></input>
         </form>
       </form-array>
     </action>
 
-    <if id="condition1">
-      <condition>mistery.password == "abrete sésamo"</condition>
+    <if id="if_block">
+      <condition>42 == 42</condition>
       <block>
-        <action id="mistical_node">
+        <action id="action_block">
           <auth-filter backend="backref">
             <param name="identifier" type="ref">user#start_node</param>
           </auth-filter>
           <form-array>
-            <form id="mistical_form">
-              <input type="text" name="answer" default="42" />
+            <form id="form_block">
+              <input type="text" name="answer" default="values" />
             </form>
           </form-array>
         </action>
       </block>
     </if>
-
-    <if id="condition2">
-
-      <condition>mistery.password == "123456"</condition>
+    <elif id="elif_block">
+      <condition>"123456" != "123456"</condition>
       <block>
-        <action id="123456_node">
+        <action id="another_action_block">
+          <node-info>
+            <name>Another Action Block</name>
+            <description>Esta es la descripcion de un nodo</description>
+          </node-info>
           <auth-filter backend="backref">
             <param name="identifier" type="ref">user#start_node</param>
           </auth-filter>
           <form-array>
-            <form id="123456_form">
-              <input type="text" name="answer" default="oh boy, please don't" />
+            <form id="another_form_block">
+              <input type="text" name="answer" default="please don't"/>
             </form>
           </form-array>
         </action>
       </block>
-    </if>
+    </elif>
 
-    <action id="final_node">
+    <validation id="validation_node">
+      <dependencies>
+       <dep>mistery.password</dep>
+      </dependencies>
+      <auth-filter>
+        <param name="identifier" type='ref'>user#start_node</param>
+      </auth-filter>
+    </validation>
+
+    <request id="request_node" method='GET'>
+      <url>http://localhost/mirror?data={{ request.data }}</url>
+      <headers>
+        <header name='content-type'>application/json</header>
+        <header name='x-url-data'>{{ request.data }}</header>
+      </headers>
+      <body>{'data':'{{ request.data }}'}</body>
+    </request>
+
+    <if id="another_id_block">
+      <condition>"false" != "true"</condition>
+        <block>
+          <action id="yet_another_act_block">
+            <auth-filter>
+              <param name="identifier" type="ref">user#start_node</param>
+            </auth-filter>
+          </action>
+          <exit id="exit_node"/>
+        </block>
+    </if>
+    <else>
+      <block>
+        <action id="more_act_blocks">
+          <auth-filter backend="backref">
+            <param name="identifier" type="ref">user#start_node</param>
+          </auth-filter>
+          <form-array>
+            <form id="form_block_21_08_2010">
+              <input type="text" name="answer" default="I do"/>
+            </form>
+            <form id="form_block_07_07_1993">
+              <input type="text" name="answer" default="Say something"/>
+            </form>
+          </form-array>
+        </action>
+        <call id="call_node">
+          <procname>simple</procname>
+          <data>
+            <form ref='start_form'>
+              <input name='data' type='ref'>form#start_form.data</input>
+            </form>
+          </data>
+        </call>
+      </block>
+    </else>
+
+    <action id="not_nested_action_block">
       <auth-filter backend="backref">
         <param name="identifier" type="ref">user#start_node</param>
       </auth-filter>
