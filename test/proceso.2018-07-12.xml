@@ -1,0 +1,58 @@
+<process-spec>
+  <process-info>
+    <author>ramiggu</author>
+    <date>2018-05-17</date>
+    <name>condition Process</name>
+    <public>false</public>
+    <description>Smallest Condition process</description>
+  </process-info>
+  <process>
+    <action id="start_node">
+      <auth-filter backend="anyone"></auth-filter>
+      <form-array>
+        <form id="mistery">
+          <input type="text" name="password"></input>
+        </form>
+      </form-array>
+    </action>
+
+    <if id="condition1">
+      <condition>mistery.password == "abrete sésamo"</condition>
+      <block>
+        <action id="mistical_node">
+          <auth-filter backend="backref">
+            <param name="identifier" type="ref">user#start_node</param>
+          </auth-filter>
+          <form-array>
+            <form id="mistical_form">
+              <input type="text" name="answer" default="42" />
+            </form>
+          </form-array>
+        </action>
+      </block>
+    </if>
+
+    <if id="condition2">
+
+      <condition>mistery.password == "123456"</condition>
+      <block>
+        <action id="123456_node">
+          <auth-filter backend="backref">
+            <param name="identifier" type="ref">user#start_node</param>
+          </auth-filter>
+          <form-array>
+            <form id="123456_form">
+              <input type="text" name="answer" default="oh boy, please don't" />
+            </form>
+          </form-array>
+        </action>
+      </block>
+    </if>
+
+    <action id="final_node">
+      <auth-filter backend="backref">
+        <param name="identifier" type="ref">user#start_node</param>
+      </auth-filter>
+    </action>
+  </process>
+</process-spec>
