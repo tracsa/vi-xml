@@ -1,24 +1,74 @@
-%statement {
-  display: block;
-  width: 100%;
-  min-height: 50px;
-  margin-bottom: 10px;
+$COLOR_LIGHT_RED: #e74c3c;
+$COLOR_DARK_RED: #c0392b;
+$COLOR_LIGHT_GREEN: #2ecc71;
+$COLOR_DARK_GREEN: #27ae60;
+$COLOR_LIGHT_BLUE: #3498db;
+$COLOR_DARK_BLUE: #2980b9;
+$COLOR_LIGHT_PURPLE: #9b59b6;
+$COLOR_DARK_PURPLE: #8e44ad;
+$COLOR_LIGHT_ORANGE: #e67e22;
+$COLOR_DARK_ORANGE: #d35400;
+$COLOR_LIGHT_YELLOW: #f1c40f;
+$COLOR_DARK_YELLOW: #f39c12;
+$COLOR_LIGHT_GRAY: #95a5a6;
+$COLOR_DARK_GRAY: #7f8c8d;
+$COLOR_LIGHT_WHITE: #ecf0f1;
+$COLOR_DARK_WHITE: #bdc3c7;
+$COLOR_LIGHT_BLACK: #34495e;
+$COLOR_DARK_BLACK: #2c3e50;
+
+
+@mixin beforeString($str) {
+    &:before {
+        content: $str;
+        color: $COLOR_LIGHT_WHITE;
+        background-color: $COLOR_DARK_BLACK;
+        padding: 4px 4px 4px 4px;
+        border-radius: 5px 10px;
+    }
 }
 
-* {
-    display: block;
+
+@mixin statement() {
+  display: block;
+  width: auto;
+  min-height: 50px;
+  margin-bottom: 10px;
+  padding: 10px 10px 10px 10px;
+  border-radius: 5px 20px;
+}
+
+@mixin anidated() {
+    block {
+        margin: 5px;
+        padding: 5px 5px 5px 5px;
+        background-color: $COLOR_LIGHT_BLACK;
+    }
+}
+
+@mixin bg-decorator() {
+}
+
+if + else, if + elif {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+if ~ else, elif ~ else {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
 }
 
 process-spec {
-    width: 800px;
+    width: 600px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
-    font-family: mono;
+    font-family: sans-serif;
 
     process-info {
         display: block;
-        width: 100%;
+        width: auto;
 
         name {
             font-size: 30px;
@@ -26,25 +76,90 @@ process-spec {
             display: block;
             width: 100%;
         }
+
+        author {
+        }
+
+        public {
+            @include beforeString("Public: ");
+        }
+
+        description {
+            font-size: 15px;
+            color: $COLOR_LIGHT_WHITE;
+            font-family: sans-serif;
+            background-size: auto;
+        }
     }
 
     process {
+
+        name {
+            font-size: 20px;
+        }
+
+        block {
+            display: block;
+        }
+
         if {
-            @extend %statement;
+            @include statement();
+            @include beforeString("If: ");
+            @include anidated();
+            background-color: $COLOR_LIGHT_YELLOW;
+        }
 
-            background-color: #e67e22;
+        elif {
+            @include statement();
+            @include beforeString("Elif: ");
+            @include anidated();
+            background-color: $COLOR_LIGHT_YELLOW;
+        }
 
-            block {
-                margin: 10px;
-                padding: 10px 10px 10px 10px;
-                background-color: #ecf0f1;
-            }
+        else {
+            @include statement();
+            @include beforeString("Else: ");
+            @include anidated()
+            background-color: $COLOR_LIGHT_YELLOW;
+        }
+
+        condition {
+            background-color: $COLOR_DARK_WHITE;
+            box-sizing: content-box;
+            display: inline-block;
+            padding: 3px 3px 3px 3px;
+            border-radius: 3px 5px;
+            font-family: mono;
         }
 
         action {
-            @extend %statement;
+            @include statement();
+            @include beforeString("Action: ");
+            background-color: $COLOR_LIGHT_PURPLE;
+        }
 
-            background-color: #2ecc71;
+        request {
+            @include statement();
+            @include beforeString("Request: ");
+            background-color: $COLOR_DARK_BLUE;
+        }
+
+        validation {
+            @include statement();
+            @include beforeString("Validation: ");
+            background-color: $COLOR_LIGHT_GREEN;
+        }
+
+        call {
+            @include statement();
+            @include beforeString("Call: ");
+            background-color: $COLOR_LIGHT_BLUE;
+        }
+
+        exit {
+            @include statement();
+            @include beforeString("Exit: ");
+            background-color: $COLOR_LIGHT_RED;
         }
     }
 }
