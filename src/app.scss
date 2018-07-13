@@ -1,7 +1,50 @@
-a {
-    background-color: #000000;
+%statement {
+  display: block;
+  width: 100%;
+  min-height: 50px;
+  margin-bottom: 10px;
+}
 
-    b {
-        background-color: #333333;
+* {
+    display: block;
+}
+
+process-spec {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    font-family: mono;
+
+    process-info {
+        display: block;
+        width: 100%;
+
+        name {
+            font-size: 30px;
+            font-weight: bold;
+            display: block;
+            width: 100%;
+        }
+    }
+
+    process {
+        if {
+            @extend %statement;
+
+            background-color: #e67e22;
+
+            block {
+                margin: 10px;
+                padding: 10px 10px 10px 10px;
+                background-color: #ecf0f1;
+            }
+        }
+
+        action {
+            @extend %statement;
+
+            background-color: #2ecc71;
+        }
     }
 }

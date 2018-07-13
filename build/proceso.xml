@@ -1,10 +1,11 @@
+<?xml-stylesheet type="text/css" href="app.css"?>
 <process-spec>
   <process-info>
-    <author>ramiggu</author>
-    <date>2018-05-17</date>
-    <name>condition Process</name>
+    <name>My Awesome Process</name>
+    <author>@kevin</author>
+    <date>2018-07-12</date>
     <public>false</public>
-    <description>Smallest Condition process</description>
+    <description>Lorem ipsum dolo sit amet caret ligula a la grande le puse cuca... and he died</description>
   </process-info>
   <process>
     <action id="start_node">
