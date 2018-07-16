@@ -17,46 +17,77 @@ $COLOR_DARK_WHITE: #bdc3c7;
 $COLOR_LIGHT_BLACK: #34495e;
 $COLOR_DARK_BLACK: #2c3e50;
 
+$STATEMENT_PADDING_TOP: 10px;
+$STATEMENT_PADDING_RIGHT: 0px;
+$STATEMENT_PADDING_BOTTOM: 10px;
+$STATEMENT_PADDING_LEFT: 10px;
+
+$STATEMENT_MARGIN_BOTTOM: 10px;
+
+$STATEMENT_BORDER_TOP_LEFT_RADIUS: 15px;
+$STATEMENT_BORDER_TOP_RIGHT_RADIUS: 40px;
+$STATEMENT_BORDER_BOTTOM_RIGHT_RADIUS: $STATEMENT_PADDING_BOTTOM;
+$STATEMENT_BORDER_BOTTOM_LEFT_RADIUS: $STATEMENT_PADDING_BOTTOM;
+
+$STRING_PADDING_TOP: 4px;
+$STRING_PADDING_RIGHT: 4px;
+$STRING_PADDING_BOTTOM: 4px;
+$STRING_PADDING_LEFT: 4px;
+
+$BLOCK_BORDER_RADIUS: 5px 20px;
+$BLOCK_MARGIN: 5px 5px 5px 3px;
+$BLOCK_PADDING: 5px;
+
+* {
+    display: block;
+    box-sizing: border-box;
+}
 
 @mixin beforeString($str) {
     &:before {
         content: $str;
         color: $COLOR_LIGHT_WHITE;
         background-color: $COLOR_DARK_BLACK;
-        padding: 4px 4px 4px 4px;
+        padding:
+            $STRING_PADDING_TOP
+            $STRING_PADDING_RIGHT
+            $STRING_PADDING_BOTTOM
+            $STRING_PADDING_LEFT
+            ;
         border-radius: 5px 10px;
     }
 }
 
-
 @mixin statement() {
-  display: block;
-  width: auto;
-  min-height: 50px;
-  margin-bottom: 10px;
-  padding: 10px 10px 10px 10px;
-  border-radius: 5px 20px;
+    display: block;
+    width: auto;
+    margin-bottom: $STATEMENT_MARGIN_BOTTOM;
+    padding:
+        $STATEMENT_PADDING_TOP
+        $STATEMENT_PADDING_RIGHT
+        $STATEMENT_PADDING_BOTTOM
+        $STATEMENT_PADDING_LEFT
+        ;
+    border-radius:
+        $STATEMENT_BORDER_TOP_LEFT_RADIUS
+        $STATEMENT_BORDER_TOP_RIGHT_RADIUS
+        $STATEMENT_BORDER_BOTTOM_RIGHT_RADIUS
+        $STATEMENT_BORDER_BOTTOM_LEFT_RADIUS
+        ;
 }
-
 @mixin anidated() {
-    block {
-        margin: 5px;
-        padding: 5px 5px 5px 5px;
+    block, form-array, headers, data {
+        margin: $BLOCK_MARGIN;
+        padding: $BLOCK_PADDING;
         background-color: $COLOR_LIGHT_BLACK;
+        border-radius: $BLOCK_BORDER_RADIUS;
     }
 }
 
-@mixin bg-decorator() {
-}
-
-if + else, if + elif {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-}
-
-if ~ else, elif ~ else {
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
+@mixin content() {
+    box-sizing: content-box;
+    background-color: $COLOR_LIGHT_WHITE;
+    font-family: mono;
 }
 
 process-spec {
@@ -74,7 +105,7 @@ process-spec {
             font-size: 30px;
             font-weight: bold;
             display: block;
-            width: 100%;
+            width: auto;
         }
 
         author {
@@ -98,15 +129,19 @@ process-spec {
             font-size: 20px;
         }
 
-        block {
-            display: block;
-        }
-
         if {
             @include statement();
             @include beforeString("If: ");
             @include anidated();
             background-color: $COLOR_LIGHT_YELLOW;
+
+            + else, + elif {
+                border-top-left-radius: 0px;
+                border-top-right-radius: 0px;
+                margin-top:
+                    -$STATEMENT_MARGIN_BOTTOM
+                    -$STATEMENT_PADDING_BOTTOM;
+            }
         }
 
         elif {
@@ -124,24 +159,53 @@ process-spec {
         }
 
         condition {
-            background-color: $COLOR_DARK_WHITE;
-            box-sizing: content-box;
-            display: inline-block;
-            padding: 3px 3px 3px 3px;
-            border-radius: 3px 5px;
-            font-family: mono;
+            @include content();
         }
 
         action {
             @include statement();
             @include beforeString("Action: ");
             background-color: $COLOR_LIGHT_PURPLE;
+
+            form-array {
+                @include beforeString("Form array: ");
+                @include anidated();
+
+                form {
+                    @include beforeString("Form: ");
+
+                    input {
+                        @include beforeString("Input: ");
+                    }
+                }
+            }
         }
 
         request {
             @include statement();
             @include beforeString("Request: ");
             background-color: $COLOR_DARK_BLUE;
+
+            url {
+                @include beforeString("Url: ");
+                @include content();
+            }
+
+            headers {
+                @include beforeString("Headers: ");
+                header {
+                    @include content();
+                    display: list-item;
+                    margin: 4px;
+                    margin-left:20px;
+                    padding: 5px;
+                }
+            }
+
+            body {
+                @include beforeString("Body: ");
+                @include content();
+            }
         }
 
         validation {

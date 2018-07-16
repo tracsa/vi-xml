@@ -49,6 +49,21 @@
             </form>
           </form-array>
         </action>
+        <if id="nested_if">
+          <condition>"cat" == "dog"</condition>
+          <block>
+            <action id="nested_action">
+              <auth-filter backend="backref">
+                <param name="identifier" type="ref">user#star_node</param>
+              </auth-filter>
+              <form-array>
+                <form id="nested_form">
+                  <input type="text" name="answer" default="wubalubadubdub"/>
+                </form>
+              </form-array>
+            </action>
+          </block>
+        </if>
       </block>
     </elif>
 
