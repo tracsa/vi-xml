@@ -1,0 +1,215 @@
+* {
+  display: block;
+  box-sizing: border-box; }
+
+process-spec {
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  font-family: sans-serif; }
+  process-spec process-info {
+    display: block;
+    width: auto; }
+    process-spec process-info name {
+      font-size: 30px;
+      font-weight: bold;
+      display: block;
+      width: auto; }
+    process-spec process-info public:before {
+      content: "Public: ";
+      color: #ecf0f1;
+      background-color: #2c3e50;
+      padding: 4px 4px 4px 4px;
+      border-radius: 5px 10px; }
+    process-spec process-info description {
+      font-size: 15px;
+      color: #ecf0f1;
+      font-family: sans-serif;
+      background-size: auto; }
+  process-spec process name {
+    font-size: 20px; }
+  process-spec process if {
+    display: block;
+    width: auto;
+    margin-bottom: 10px;
+    padding: 10px 0px 10px 10px;
+    border-radius: 15px 40px 10px 10px;
+    background-color: #f1c40f; }
+    process-spec process if:before {
+      content: "If: ";
+      color: #ecf0f1;
+      background-color: #2c3e50;
+      padding: 4px 4px 4px 4px;
+      border-radius: 5px 10px; }
+    process-spec process if block, process-spec process if form-array, process-spec process if headers, process-spec process if data {
+      margin: 5px 5px 5px 3px;
+      padding: 5px;
+      background-color: #34495e;
+      border-radius: 5px 20px; }
+    process-spec process if + else, process-spec process if + elif {
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+      margin-top: -20px; }
+  process-spec process elif {
+    display: block;
+    width: auto;
+    margin-bottom: 10px;
+    padding: 10px 0px 10px 10px;
+    border-radius: 15px 40px 10px 10px;
+    background-color: #f1c40f; }
+    process-spec process elif:before {
+      content: "Elif: ";
+      color: #ecf0f1;
+      background-color: #2c3e50;
+      padding: 4px 4px 4px 4px;
+      border-radius: 5px 10px; }
+    process-spec process elif block, process-spec process elif form-array, process-spec process elif headers, process-spec process elif data {
+      margin: 5px 5px 5px 3px;
+      padding: 5px;
+      background-color: #34495e;
+      border-radius: 5px 20px; }
+  process-spec process else {
+    display: block;
+    width: auto;
+    margin-bottom: 10px;
+    padding: 10px 0px 10px 10px;
+    border-radius: 15px 40px 10px 10px;
+    background-color: #f1c40f; }
+    process-spec process else:before {
+      content: "Else: ";
+      color: #ecf0f1;
+      background-color: #2c3e50;
+      padding: 4px 4px 4px 4px;
+      border-radius: 5px 10px; }
+    process-spec process else block, process-spec process else form-array, process-spec process else headers, process-spec process else data {
+      margin: 5px 5px 5px 3px;
+      padding: 5px;
+      background-color: #34495e;
+      border-radius: 5px 20px; }
+  process-spec process condition {
+    box-sizing: content-box;
+    background-color: #ecf0f1;
+    font-family: mono; }
+  process-spec process action {
+    display: block;
+    width: auto;
+    margin-bottom: 10px;
+    padding: 10px 0px 10px 10px;
+    border-radius: 15px 40px 10px 10px;
+    background-color: #9b59b6; }
+    process-spec process action:before {
+      content: "Action: ";
+      color: #ecf0f1;
+      background-color: #2c3e50;
+      padding: 4px 4px 4px 4px;
+      border-radius: 5px 10px; }
+    process-spec process action form-array:before {
+      content: "Form array: ";
+      color: #ecf0f1;
+      background-color: #2c3e50;
+      padding: 4px 4px 4px 4px;
+      border-radius: 5px 10px; }
+    process-spec process action form-array block, process-spec process action form-array form-array, process-spec process action form-array headers, process-spec process action form-array data {
+      margin: 5px 5px 5px 3px;
+      padding: 5px;
+      background-color: #34495e;
+      border-radius: 5px 20px; }
+    process-spec process action form-array form:before {
+      content: "Form: ";
+      color: #ecf0f1;
+      background-color: #2c3e50;
+      padding: 4px 4px 4px 4px;
+      border-radius: 5px 10px; }
+    process-spec process action form-array form input:before {
+      content: "Input: ";
+      color: #ecf0f1;
+      background-color: #2c3e50;
+      padding: 4px 4px 4px 4px;
+      border-radius: 5px 10px; }
+  process-spec process request {
+    display: block;
+    width: auto;
+    margin-bottom: 10px;
+    padding: 10px 0px 10px 10px;
+    border-radius: 15px 40px 10px 10px;
+    background-color: #2980b9; }
+    process-spec process request:before {
+      content: "Request: ";
+      color: #ecf0f1;
+      background-color: #2c3e50;
+      padding: 4px 4px 4px 4px;
+      border-radius: 5px 10px; }
+    process-spec process request url {
+      box-sizing: content-box;
+      background-color: #ecf0f1;
+      font-family: mono; }
+      process-spec process request url:before {
+        content: "Url: ";
+        color: #ecf0f1;
+        background-color: #2c3e50;
+        padding: 4px 4px 4px 4px;
+        border-radius: 5px 10px; }
+    process-spec process request headers:before {
+      content: "Headers: ";
+      color: #ecf0f1;
+      background-color: #2c3e50;
+      padding: 4px 4px 4px 4px;
+      border-radius: 5px 10px; }
+    process-spec process request headers header {
+      box-sizing: content-box;
+      background-color: #ecf0f1;
+      font-family: mono;
+      display: list-item;
+      margin: 4px;
+      margin-left: 20px;
+      padding: 5px; }
+    process-spec process request body {
+      box-sizing: content-box;
+      background-color: #ecf0f1;
+      font-family: mono; }
+      process-spec process request body:before {
+        content: "Body: ";
+        color: #ecf0f1;
+        background-color: #2c3e50;
+        padding: 4px 4px 4px 4px;
+        border-radius: 5px 10px; }
+  process-spec process validation {
+    display: block;
+    width: auto;
+    margin-bottom: 10px;
+    padding: 10px 0px 10px 10px;
+    border-radius: 15px 40px 10px 10px;
+    background-color: #2ecc71; }
+    process-spec process validation:before {
+      content: "Validation: ";
+      color: #ecf0f1;
+      background-color: #2c3e50;
+      padding: 4px 4px 4px 4px;
+      border-radius: 5px 10px; }
+  process-spec process call {
+    display: block;
+    width: auto;
+    margin-bottom: 10px;
+    padding: 10px 0px 10px 10px;
+    border-radius: 15px 40px 10px 10px;
+    background-color: #3498db; }
+    process-spec process call:before {
+      content: "Call: ";
+      color: #ecf0f1;
+      background-color: #2c3e50;
+      padding: 4px 4px 4px 4px;
+      border-radius: 5px 10px; }
+  process-spec process exit {
+    display: block;
+    width: auto;
+    margin-bottom: 10px;
+    padding: 10px 0px 10px 10px;
+    border-radius: 15px 40px 10px 10px;
+    background-color: #e74c3c; }
+    process-spec process exit:before {
+      content: "Exit: ";
+      color: #ecf0f1;
+      background-color: #2c3e50;
+      padding: 4px 4px 4px 4px;
+      border-radius: 5px 10px; }
