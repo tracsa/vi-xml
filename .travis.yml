@@ -1,0 +1,17 @@
+before_install:
+- rvm install 2.2.4
+- gem install sass
+- gem install scss-lint
+- npm install -g grunt-cli 
+
+install: true
+
+script: make
+
+deploy:
+- provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  on:
+    branch: master
