@@ -16,7 +16,8 @@
 
   <xsl:template match="process-spec">
     <div class="process-spec">
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="./process-info"/>
+      <xsl:apply-templates select="./process"/>
     </div>
   </xsl:template>
 
@@ -112,7 +113,9 @@
       <div class="condition">
         <xsl:value-of select="./condition"/>
       </div>
-      <xsl:apply-templates select="./block"/>
+      <div class="block">
+        <xsl:apply-templates select="./block"/>
+      </div>
     </div>
   </xsl:template>
 
@@ -124,7 +127,9 @@
       <div class="condition">
         <xsl:value-of select="./condition"/>
       </div>
-      <xsl:apply-templates select="./block"/>
+      <div class="block">
+        <xsl:apply-templates select="./block"/>
+      </div>
     </div>
   </xsl:template>
 
@@ -133,7 +138,9 @@
       <div class="id">
         <xsl:value-of select="./@id"/>
       </div>
-      <xsl:apply-templates select="./block"/>
+      <div class="block">
+        <xsl:apply-templates select="./block"/>
+      </div>
     </div>
   </xsl:template>
 
