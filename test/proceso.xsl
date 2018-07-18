@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 
 <xsl:stylesheet version='1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform'>
+
   <xsl:template match='/'>
     <html>
       <head>
@@ -111,6 +112,7 @@
       <div class="condition">
         <xsl:value-of select="./condition"/>
       </div>
+      <xsl:apply-templates select="./block"/>
     </div>
   </xsl:template>
 
@@ -122,6 +124,7 @@
       <div class="condition">
         <xsl:value-of select="./condition"/>
       </div>
+      <xsl:apply-templates select="./block"/>
     </div>
   </xsl:template>
 
@@ -129,6 +132,156 @@
     <div class="else">
       <div class="id">
         <xsl:value-of select="./@id"/>
+      </div>
+      <xsl:apply-templates select="./block"/>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="call">
+    <div class="call">
+      <div class="id">
+        <xsl:value-of select="./@id"/>
+      </div>
+      <div class="procname">
+        <xsl:value-of select="./procname"/>
+      </div>
+      <div class="data">
+        <xsl:for-each select="./data/form">
+          <div class="form">
+            <div class="ref">
+              <xsl:value-of select="./@ref"/>
+            </div>
+            <xsl:for-each select="./input">
+              <div class="input">
+                <div class="name">
+                  <xsl:value-of select="./@name"/>
+                </div>
+                <div class="type">
+                  <xsl:value-of select="./@type"/>
+                </div>
+              </div>
+            </xsl:for-each>
+          </div>
+        </xsl:for-each>
+      </div>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="input">
+    <div class="input">
+      <div class="name">
+        <xsl:value-of select="./@name"/>
+      </div>
+      <div class="type">
+        <xsl:value-of select="./@type"/>
+      </div>
+      <div class="required">
+        <xsl:value-of select="./@required"/>
+      </div>
+      <div class="hidden">
+        <xsl:value-of select="./@hidden"/>
+      </div>
+      <div class="label">
+        <xsl:value-of select="./@label"/>
+      </div>
+      <div class="placeholder">
+        <xsl:value-of select="./@placeholder"/>
+      </div>
+      <div class="default">
+        <xsl:value-of select="./@default"/>
+      </div>
+      <div class="regex">
+        <xsl:value-of select="./@regex"/>
+      </div>
+      <div class="helper">
+        <xsl:value-of select="./@helper"/>
+      </div>
+      <div class="provider">
+        <xsl:value-of select="./@provider"/>
+      </div>
+      <div class="options">
+        <xsl:apply-templates select="./options/option"/>
+      </div>
+      <xsl:apply-templates select="./dependencies"/>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="dependencies">
+    <div class="dependencies">
+      <xsl:apply-templates select="./dep"/>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="dep">
+    <div class="dep">
+      <xsl:value-of select="."/>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="exit">
+    <div class="exit">
+      <div class="id">
+        <xsl:value-of select="./@id"/>
+      </div>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="node-info">
+    <div class="node-info">
+      <div class="name">
+        <xsl:value-of select="./name"/>
+      </div>
+      <div class="description">
+        <xsl:value-of select="./description"/>
+      </div>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="param">
+    <div class="param">
+      <div class="name">
+        <xsl:value-of select="./@name"/>
+      </div>
+      <div class="type">
+        <xsl:value-of select="./@type"/>
+      </div>
+      <div>
+        <xsl:value-of select="."/>
+      </div>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="form-array">
+    <div class="form-array">
+      <xsl:apply-templates select="./form"/>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="auth-filter">
+    <div class="auth-filter">
+      <div class="backend">
+         <xsl:value-of select="./@backend"/>
+      </div>
+      <xsl:apply-templates select="./param"/>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="form">
+    <div class="form">
+      <div class="id">
+        <xsl:value-of select="./@id"/>
+      </div>
+      <div class="multiple">
+        <xsl:value-of select="./@multiple"/>
+      </div>
+      <xsl:apply-templates select="./input"/>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="option">
+    <div class="option">
+      <div class="value">
+        <xsl:value-of select="./@value"/>
       </div>
     </div>
   </xsl:template>
