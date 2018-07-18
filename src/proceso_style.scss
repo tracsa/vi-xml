@@ -75,8 +75,9 @@ $BLOCK_PADDING: 5px;
         $STATEMENT_BORDER_BOTTOM_LEFT_RADIUS
         ;
 }
+
 @mixin anidated() {
-    block, form-array, headers, data {
+    .block, .form-array, .headers, .data {
         margin: $BLOCK_MARGIN;
         padding: $BLOCK_PADDING;
         background-color: $COLOR_LIGHT_BLACK;
@@ -90,32 +91,34 @@ $BLOCK_PADDING: 5px;
     font-family: mono;
 }
 
-process-spec {
+.process-spec {
     width: 600px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
     font-family: sans-serif;
+    padding: 10px;
+    background-color: $COLOR_LIGHT_BLACK;
 
-    process-info {
+    .process-info {
         display: block;
         width: auto;
 
-        name {
+        .name {
             font-size: 30px;
             font-weight: bold;
             display: block;
             width: auto;
         }
 
-        author {
+        .author {
         }
 
-        public {
+        .public {
             @include beforeString("Public: ");
         }
 
-        description {
+        .description {
             font-size: 15px;
             color: $COLOR_LIGHT_WHITE;
             font-family: sans-serif;
@@ -123,77 +126,85 @@ process-spec {
         }
     }
 
-    process {
+    .process {
 
-        name {
+        .name {
             font-size: 20px;
         }
 
-        if {
+        .if {
             @include statement();
             @include beforeString("If: ");
             @include anidated();
             background-color: $COLOR_LIGHT_YELLOW;
+        }
 
-            + else, + elif {
+        .if-followed{
+            @include statement();
+            @include beforeString("If: ");
+            @include anidated();
+            background-color: $COLOR_LIGHT_YELLOW;
+            border-bottom-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+
+            + .else, + .elif {
                 border-top-left-radius: 0px;
                 border-top-right-radius: 0px;
                 margin-top:
-                    -$STATEMENT_MARGIN_BOTTOM
-                    -$STATEMENT_PADDING_BOTTOM;
+                    -$STATEMENT_MARGIN_BOTTOM;
             }
         }
 
-        elif {
+        .elif {
             @include statement();
             @include beforeString("Elif: ");
             @include anidated();
             background-color: $COLOR_LIGHT_YELLOW;
         }
 
-        else {
+        .else {
             @include statement();
             @include beforeString("Else: ");
             @include anidated()
             background-color: $COLOR_LIGHT_YELLOW;
         }
 
-        condition {
+        .condition {
             @include content();
         }
 
-        action {
+        .action {
             @include statement();
             @include beforeString("Action: ");
             background-color: $COLOR_LIGHT_PURPLE;
 
-            form-array {
+            .form-array {
                 @include beforeString("Form array: ");
                 @include anidated();
 
-                form {
+                .form {
                     @include beforeString("Form: ");
 
-                    input {
+                    .input {
                         @include beforeString("Input: ");
                     }
                 }
             }
         }
 
-        request {
+        .request {
             @include statement();
             @include beforeString("Request: ");
             background-color: $COLOR_DARK_BLUE;
 
-            url {
+            .url {
                 @include beforeString("Url: ");
                 @include content();
             }
 
-            headers {
+            .headers {
                 @include beforeString("Headers: ");
-                header {
+                .header {
                     @include content();
                     display: list-item;
                     margin: 4px;
@@ -202,25 +213,25 @@ process-spec {
                 }
             }
 
-            body {
+            .body {
                 @include beforeString("Body: ");
                 @include content();
             }
         }
 
-        validation {
+        .validation {
             @include statement();
             @include beforeString("Validation: ");
             background-color: $COLOR_LIGHT_GREEN;
         }
 
-        call {
+        .call {
             @include statement();
             @include beforeString("Call: ");
             background-color: $COLOR_LIGHT_BLUE;
         }
 
-        exit {
+        .exit {
             @include statement();
             @include beforeString("Exit: ");
             background-color: $COLOR_LIGHT_RED;

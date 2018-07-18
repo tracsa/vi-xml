@@ -1,4 +1,5 @@
-<?xml-stylesheet type="text/css" href="app.css"?>
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type='text/xsl' href='proceso_transform.xsl'?>
 <process-spec>
   <process-info>
     <name>My Awesome Process</name>
