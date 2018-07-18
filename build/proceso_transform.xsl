@@ -6,7 +6,7 @@
     <html>
       <head>
         <meta charset="UTF-8"/>
-        <link rel="stylesheet" href="app.css"/>
+        <link rel="stylesheet" href="proceso_style.css"/>
       </head>
       <body>
         <xsl:apply-templates/>
