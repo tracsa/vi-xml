@@ -4,6 +4,7 @@ before_install:
 - gem install scss-lint
 - npm install -g grunt-cli 
 - npm install node-sass
+- gem install sassc
 
 install: true
 
