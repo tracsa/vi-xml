@@ -7,5 +7,13 @@ before_install:
 install: true
 
 script:
-- which sassc
 - make
+
+deploy:
+- provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  local-dir: build
+  on:
+    branch: master
