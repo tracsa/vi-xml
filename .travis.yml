@@ -1,5 +1,6 @@
 before_install:
-- npm install -g node-sass
+- brew update
+- brew install sassc
 
 install: true
 
