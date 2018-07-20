@@ -18,7 +18,7 @@ $COLOR_LIGHT_BLACK: #34495e;
 $COLOR_DARK_BLACK: #2c3e50;
 
 $STATEMENT_PADDING_TOP: 10px;
-$STATEMENT_PADDING_RIGHT: 0px;
+$STATEMENT_PADDING_RIGHT: 5px;
 $STATEMENT_PADDING_BOTTOM: 10px;
 $STATEMENT_PADDING_LEFT: 10px;
 
@@ -38,26 +38,6 @@ $BLOCK_BORDER_RADIUS: 5px 20px;
 $BLOCK_MARGIN: 5px 5px 5px 3px;
 $BLOCK_PADDING: 5px;
 
-* {
-    display: block;
-    box-sizing: border-box;
-}
-
-@mixin beforeString($str) {
-    &:before {
-        content: $str;
-        color: $COLOR_LIGHT_WHITE;
-        background-color: $COLOR_DARK_BLACK;
-        padding:
-            $STRING_PADDING_TOP
-            $STRING_PADDING_RIGHT
-            $STRING_PADDING_BOTTOM
-            $STRING_PADDING_LEFT
-            ;
-        border-radius: 5px 10px;
-    }
-}
-
 @mixin statement() {
     display: block;
     width: auto;
@@ -68,16 +48,10 @@ $BLOCK_PADDING: 5px;
         $STATEMENT_PADDING_BOTTOM
         $STATEMENT_PADDING_LEFT
         ;
-    border-radius:
-        $STATEMENT_BORDER_TOP_LEFT_RADIUS
-        $STATEMENT_BORDER_TOP_RIGHT_RADIUS
-        $STATEMENT_BORDER_BOTTOM_RIGHT_RADIUS
-        $STATEMENT_BORDER_BOTTOM_LEFT_RADIUS
-        ;
 }
 
 @mixin anidated() {
-    .block, .form-array, .headers, .data {
+    .block, .form-array, .headers, .node-info {
         margin: $BLOCK_MARGIN;
         padding: $BLOCK_PADDING;
         background-color: $COLOR_LIGHT_BLACK;
@@ -88,7 +62,11 @@ $BLOCK_PADDING: 5px;
 @mixin content() {
     box-sizing: content-box;
     background-color: $COLOR_LIGHT_WHITE;
-    font-family: mono;
+    font-family: monospace;
+    display: inline-block;
+    border-radius: 5px;
+    font-size: 15px;
+    padding: 4px;
 }
 
 .process-spec {
@@ -101,8 +79,11 @@ $BLOCK_PADDING: 5px;
     background-color: $COLOR_LIGHT_BLACK;
 
     .process-info {
-        display: block;
-        width: auto;
+        @include statement();
+        background-color: $COLOR_LIGHT_WHITE;
+
+        .author {
+        }
 
         .name {
             font-size: 30px;
@@ -111,16 +92,11 @@ $BLOCK_PADDING: 5px;
             width: auto;
         }
 
-        .author {
-        }
-
         .public {
-            @include beforeString("Public: ");
         }
 
         .description {
             font-size: 15px;
-            color: $COLOR_LIGHT_WHITE;
             font-family: sans-serif;
             background-size: auto;
         }
@@ -132,16 +108,22 @@ $BLOCK_PADDING: 5px;
             font-size: 20px;
         }
 
+        .block-title {
+            display: inline-block;
+            padding: 5px;
+            font-size: 15px;
+            color: $COLOR_LIGHT_WHITE;
+            background-color: $COLOR_DARK_BLACK;
+        }
+
         .if {
             @include statement();
-            @include beforeString("If: ");
             @include anidated();
             background-color: $COLOR_LIGHT_YELLOW;
         }
 
         .if-followed{
             @include statement();
-            @include beforeString("If: ");
             @include anidated();
             background-color: $COLOR_LIGHT_YELLOW;
             border-bottom-right-radius: 0px;
@@ -157,14 +139,12 @@ $BLOCK_PADDING: 5px;
 
         .elif {
             @include statement();
-            @include beforeString("Elif: ");
             @include anidated();
             background-color: $COLOR_LIGHT_YELLOW;
         }
 
         .else {
             @include statement();
-            @include beforeString("Else: ");
             @include anidated()
             background-color: $COLOR_LIGHT_YELLOW;
         }
@@ -175,18 +155,14 @@ $BLOCK_PADDING: 5px;
 
         .action {
             @include statement();
-            @include beforeString("Action: ");
-            background-color: $COLOR_LIGHT_PURPLE;
+            @include anidated();
+            background-color: $COLOR_LIGHT_ORANGE;
 
             .form-array {
-                @include beforeString("Form array: ");
-                @include anidated();
 
                 .form {
-                    @include beforeString("Form: ");
 
                     .input {
-                        @include beforeString("Input: ");
                     }
                 }
             }
@@ -194,16 +170,13 @@ $BLOCK_PADDING: 5px;
 
         .request {
             @include statement();
-            @include beforeString("Request: ");
             background-color: $COLOR_DARK_BLUE;
 
             .url {
-                @include beforeString("Url: ");
                 @include content();
             }
 
             .headers {
-                @include beforeString("Headers: ");
                 .header {
                     @include content();
                     display: list-item;
@@ -214,27 +187,53 @@ $BLOCK_PADDING: 5px;
             }
 
             .body {
-                @include beforeString("Body: ");
                 @include content();
             }
         }
 
         .validation {
             @include statement();
-            @include beforeString("Validation: ");
             background-color: $COLOR_LIGHT_GREEN;
         }
 
         .call {
             @include statement();
-            @include beforeString("Call: ");
             background-color: $COLOR_LIGHT_BLUE;
+
+            .procname {
+                display: inline-block;
+            }
+
+            .data {
+
+                .form {
+                    padding: 5px;
+                    background-color: $COLOR_DARK_PURPLE;
+                    margin-bottom: $STATEMENT_MARGIN_BOTTOM;
+
+                    .ref {
+                        display: inline-block;
+                    }
+
+                    table {
+                        width: 100%;
+                    }
+
+                    .input {
+
+                        .name {
+                        }
+
+                        .type {
+                        }
+                    }
+                }
+            }
         }
 
         .exit {
             @include statement();
-            @include beforeString("Exit: ");
-            background-color: $COLOR_LIGHT_RED;
+            background-color: $COLOR_DARK_RED;
         }
     }
 }
