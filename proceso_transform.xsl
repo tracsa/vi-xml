@@ -23,19 +23,24 @@
 
   <xsl:template match="process-info">
     <div class="process-info">
-      <div class="author">
+      <div class="name">
+        <text>Name: </text>
+        <xsl:value-of select="./name"/>
+      </div>
+        <div class="author">
+        <text>Author: </text>
         <xsl:value-of select="./author"/>
       </div>
       <div class="date">
+        <text>Date: </text>
         <xsl:value-of select="./date"/>
       </div>
-      <div class="name">
-        <xsl:value-of select="./name"/>
-      </div>
       <div class="public">
+        <text>Public: </text>
         <xsl:value-of select="./public"/>
       </div>
       <div class="description">
+        <text>Description: </text>
         <xsl:value-of select="./description"/>
       </div>
     </div>
@@ -49,33 +54,27 @@
 
   <xsl:template match="action">
     <div class="action">
-      <div class="id">
-        <xsl:value-of select="./@id"/>
-      </div>
+      <div class="block-title">Action: </div>
       <div class="milestone">
         <xsl:value-of select="./milestone"/>
       </div>
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="./node-info"/>
+      <xsl:apply-templates select="./form-array"/>
     </div>
   </xsl:template>
 
   <xsl:template match="validation">
     <div class="validation">
-      <div class="id">
-        <xsl:value-of select="./@id"/>
-      </div>
       <div class="milestone">
         <xsl:value-of select="./milestone"/>
       </div>
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="./node-info"/>
+      <xsl:apply-templates select="./dependencies"/>
     </div>
   </xsl:template>
 
   <xsl:template match="request">
     <div class="request">
-       <div class="id">
-         <xsl:value-of select="./@id"/>
-       </div>
        <div class="method">
          <xsl:value-of select="./@method"/>
        </div>
@@ -107,9 +106,7 @@
           <xsl:otherwise>if</xsl:otherwise>
         </xsl:choose>
       </xsl:attribute>
-      <div class="id">
-        <xsl:value-of select="./@id"/>
-      </div>
+      <div class="block-title">If:</div>
       <div class="condition">
         <xsl:value-of select="./condition"/>
       </div>
@@ -121,9 +118,7 @@
 
   <xsl:template match="elif">
     <div class="elif">
-      <div class="id">
-        <xsl:value-of select="./@id"/>
-      </div>
+      <div class="block-title">Elif:</div>
       <div class="condition">
         <xsl:value-of select="./condition"/>
       </div>
@@ -135,9 +130,7 @@
 
   <xsl:template match="else">
     <div class="else">
-      <div class="id">
-        <xsl:value-of select="./@id"/>
-      </div>
+      <div class="block-title">Else:</div>
       <div class="block">
         <xsl:apply-templates select="./block"/>
       </div>
@@ -146,28 +139,33 @@
 
   <xsl:template match="call">
     <div class="call">
-      <div class="id">
-        <xsl:value-of select="./@id"/>
-      </div>
+      <div class="block-title">Call:</div>
       <div class="procname">
         <xsl:value-of select="./procname"/>
       </div>
       <div class="data">
         <xsl:for-each select="./data/form">
           <div class="form">
+            <div class="block-title">Ref:</div>
             <div class="ref">
               <xsl:value-of select="./@ref"/>
             </div>
-            <xsl:for-each select="./input">
-              <div class="input">
-                <div class="name">
-                  <xsl:value-of select="./@name"/>
-                </div>
-                <div class="type">
-                  <xsl:value-of select="./@type"/>
-                </div>
-              </div>
-            </xsl:for-each>
+            <table class="input">
+              <tr>
+                <th>Name</th>
+                <th>Text</th>
+              </tr>
+              <xsl:for-each select="./input">
+                <tr>
+                  <td class="name">
+                    <xsl:value-of select="./@name"/>
+                  </td>
+                  <td>
+                    <xsl:value-of select="."/>
+                  </td>
+                </tr>
+              </xsl:for-each>
+            </table>
           </div>
         </xsl:for-each>
       </div>
@@ -227,18 +225,17 @@
 
   <xsl:template match="exit">
     <div class="exit">
-      <div class="id">
-        <xsl:value-of select="./@id"/>
-      </div>
     </div>
   </xsl:template>
 
   <xsl:template match="node-info">
     <div class="node-info">
       <div class="name">
+        <text>Name: </text>
         <xsl:value-of select="./name"/>
       </div>
       <div class="description">
+        <text>Description: </text>
         <xsl:value-of select="./description"/>
       </div>
     </div>
@@ -264,20 +261,8 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="auth-filter">
-    <div class="auth-filter">
-      <div class="backend">
-         <xsl:value-of select="./@backend"/>
-      </div>
-      <xsl:apply-templates select="./param"/>
-    </div>
-  </xsl:template>
-
   <xsl:template match="form">
     <div class="form">
-      <div class="id">
-        <xsl:value-of select="./@id"/>
-      </div>
       <div class="multiple">
         <xsl:value-of select="./@multiple"/>
       </div>

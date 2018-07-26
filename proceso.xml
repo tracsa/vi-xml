@@ -6,10 +6,14 @@
     <author>@kevin</author>
     <date>2018-07-12</date>
     <public>false</public>
-    <description>Lorem ipsum dolo sit amet caret ligula a la grande le puse cuca... and he died</description>
+    <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Magna ac placerat vestibulum lectus mauris ultrices. Sed cras ornare arcu dui vivamus. Consectetur adipiscing elit pellentesque habitant morbi tristique senectus. Dolor purus non enim praesent elementum facilisis leo vel fringilla. Risus sed vulputate odio ut enim blandit. Sed euismod nisi porta lorem mollis aliquam. Eu lobortis elementum nibh tellus molestie nunc non blandit massa. Volutpat diam ut venenatis tellus in metus vulputate eu. Facilisi morbi tempus iaculis urna id volutpat lacus laoreet non.</description>
   </process-info>
   <process>
     <action id="start_node">
+      <node-info>
+        <name>Start node!</name>
+        <description>Morbi leo urna molestie at elementum eu facilisis sed odio. Amet massa vitae tortor condimentum. Aliquam id diam maecenas ultricies mi eget mauris pharetra et. Aenean et tortor at risus viverra adipiscing. Sed lectus vestibulum mattis ullamcorper. Sit amet luctus venenatis lectus magna. Proin nibh nisl condimentum id. Purus semper eget duis at tellus. Nisl pretium fusce id velit ut tortor pretium viverra suspendisse. Accumsan lacus vel facilisis volutpat est velit egestas.</description>
+      </node-info>
       <auth-filter backend="anyone"></auth-filter>
       <form-array>
         <form id="mistery">
@@ -22,6 +26,10 @@
       <condition>42 == 42</condition>
       <block>
         <action id="action_block">
+          <node-info>
+            <name>First "if" block</name>
+            <description>dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae auctor eu augue ut lectus arcu bibendum at varius vel pharetra vel turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet</description>
+          </node-info>
           <auth-filter backend="backref">
             <param name="identifier" type="ref">user#start_node</param>
           </auth-filter>
@@ -55,7 +63,7 @@
           <block>
             <action id="nested_action">
               <auth-filter backend="backref">
-                <param name="identifier" type="ref">user#star_node</param>
+                <param name="identifier" type="ref">user#start_node</param>
               </auth-filter>
               <form-array>
                 <form id="nested_form">
@@ -97,7 +105,7 @@
           <exit id="exit_node"/>
         </block>
     </if>
-    <else>
+    <else id="one_else_block">
       <block>
         <action id="more_act_blocks">
           <auth-filter backend="backref">
@@ -116,6 +124,13 @@
           <procname>simple</procname>
           <data>
             <form ref='start_form'>
+              <input name='data' type='ref'>form#start_form.data</input>
+              <input name='data' type='ref'>form#start_form.data</input>
+              <input name='data' type='ref'>form#start_form.data</input>
+              <input name='data' type='ref'>form#start_form.data</input>
+              <input name='data' type='ref'>form#start_form.data</input>
+            </form>
+            <form ref='continue_form'>
               <input name='data' type='ref'>form#start_form.data</input>
             </form>
           </data>
