@@ -7,7 +7,7 @@ before_install:
 install: true
 
 script:
-- make
+- make STYLE_HREF="<link rel=\\\"stylesheet\\\" href=\\\"https:\\\/\\\/tracsa.github.io\\\/vi-xml\\\/proceso_style.css\\\"\\\/>"
 
 deploy:
 - provider: pages

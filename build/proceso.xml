@@ -1,5 +1,5 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<?xml-stylesheet type='text/xsl' href='proceso_transform.xsl'?>
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="proceso_transform.xsl"?>
 <process-spec>
   <process-info>
     <name>My Awesome Process</name>
@@ -81,17 +81,17 @@
        <dep>mistery.password</dep>
       </dependencies>
       <auth-filter>
-        <param name="identifier" type='ref'>user#start_node</param>
+        <param name="identifier" type="ref">user#start_node</param>
       </auth-filter>
     </validation>
 
-    <request id="request_node" method='GET'>
+    <request id="request_node" method="GET">
       <url>http://localhost/mirror?data={{ request.data }}</url>
       <headers>
-        <header name='content-type'>application/json</header>
-        <header name='x-url-data'>{{ request.data }}</header>
+        <header name="content-type">application/json</header>
+        <header name="x-url-data">{{ request.data }}</header>
       </headers>
-      <body>{'data':'{{ request.data }}'}</body>
+      <body>{"data":"{{ request.data }}"}</body>
     </request>
 
     <if id="another_id_block">
@@ -123,15 +123,15 @@
         <call id="call_node">
           <procname>simple</procname>
           <data>
-            <form ref='start_form'>
-              <input name='data' type='ref'>form#start_form.data</input>
-              <input name='data' type='ref'>form#start_form.data</input>
-              <input name='data' type='ref'>form#start_form.data</input>
-              <input name='data' type='ref'>form#start_form.data</input>
-              <input name='data' type='ref'>form#start_form.data</input>
+            <form ref="start_form">
+              <input name="data" type="ref">form#start_form.data</input>
+              <input name="data" type="ref">form#start_form.data</input>
+              <input name="data" type="ref">form#start_form.data</input>
+              <input name="data" type="ref">form#start_form.data</input>
+              <input name="data" type="ref">form#start_form.data</input>
             </form>
-            <form ref='continue_form'>
-              <input name='data' type='ref'>form#start_form.data</input>
+            <form ref="continue_form">
+              <input name="data" type="ref">form#start_form.data</input>
             </form>
           </data>
         </call>
