@@ -12,3 +12,7 @@ Just have this as header of your xmls:
 ```
 
 then open in the browser the xml file
+
+## What does a proces look like?
+
+Like this: https://tracsa.github.io/vi-xml/proceso.xml
