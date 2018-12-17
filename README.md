@@ -2,6 +2,20 @@
 
 XML process viewer.
 
+## Development
+
+### Requirements
+
+* sassc
+
+### Build
+
+Modify
+`src/proceso_style.scss` for styles and
+`src/proceso_transform.xsl` for the template.
+
+Build the `css` using `$ make`
+
 ## Usage
 
 Just have this as header of your xmls:
