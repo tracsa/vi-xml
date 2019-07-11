@@ -5,222 +5,245 @@
   <xsl:template match="/">
     <html>
       <head>
-        <meta charset="UTF-8"/>
-        <link rel="stylesheet" href="proceso_style.css"/>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+
       </head>
       <body>
-        <xsl:apply-templates/>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <div class="container">
+          <xsl:apply-templates/>
+        </div>
       </body>
     </html>
   </xsl:template>
 
   <xsl:template match="process-spec">
-    <div class="process-spec">
-      <xsl:apply-templates select="./process-info"/>
-      <xsl:apply-templates select="./process"/>
-    </div>
+    <xsl:apply-templates select="./process-info"/>
+    <xsl:apply-templates select="./process"/>
   </xsl:template>
 
   <xsl:template match="process-info">
-    <div class="process-info">
-      <div class="name">
-        <text>Name: </text>
-        <xsl:value-of select="./name"/>
-      </div>
-        <div class="author">
-        <text>Author: </text>
+    <div class="card text-white bg-dark mb-3">
+      <div class="card-header">
         <xsl:value-of select="./author"/>
+        <span class="text-muted">
+          (Public: <xsl:value-of select="./public"/>)
+        </span>
       </div>
-      <div class="date">
-        <text>Date: </text>
-        <xsl:value-of select="./date"/>
-      </div>
-      <div class="public">
-        <text>Public: </text>
-        <xsl:value-of select="./public"/>
-      </div>
-      <div class="description">
-        <text>Description: </text>
-        <xsl:value-of select="./description"/>
+      <div class="card-body">
+        <h5 class="card-title">
+          <xsl:value-of select="./name"/>
+        </h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          <xsl:value-of select="./date"/>
+        </h6>
+        <p class="card-text">
+          <xsl:value-of select="./description"/>
+        </p>
       </div>
     </div>
   </xsl:template>
 
   <xsl:template match="process">
-    <div class="process">
+    <div class="container">
       <xsl:apply-templates/>
     </div>
   </xsl:template>
 
   <xsl:template match="action">
-    <div class="action">
-      <div class="block-title">Action: </div>
-      <div class="milestone">
-        <xsl:value-of select="./milestone"/>
+    <div class="card border-dark mb-3">
+      <div class="card-header">
+        Action
+        <span class="text-muted">
+          (<xsl:value-of select="./@id"/>)
+        </span>
+        <xsl:apply-templates select="./auth-filter"/>
       </div>
-      <xsl:apply-templates select="./node-info"/>
-      <xsl:apply-templates select="./form-array"/>
+      <div class="card-body text-dark">
+        <xsl:apply-templates select="./node-info"/>
+        <div class="card">
+          <div class="card-header">
+              Form array:
+          </div>
+          <div class="card-body">
+            <xsl:apply-templates select="./form-array"/>
+          </div>
+        </div>
+      </div>
     </div>
   </xsl:template>
 
   <xsl:template match="validation">
-    <div class="validation">
-      <div class="milestone">
-        <xsl:value-of select="./milestone"/>
+    <div class="card">
+      <div class="card-header">
+        Validation
+        <span class="text-muted">
+          (<xsl:value-of select="./@id"/>)
+        </span>
       </div>
-      <xsl:apply-templates select="./node-info"/>
-      <xsl:apply-templates select="./dependencies"/>
+      <div class="card-body">
+        <xsl:apply-templates select="./auth-filter"/>
+      </div>
+      <div class="card-footer">
+        <xsl:apply-templates select="./dependencies"/>
+      </div>
     </div>
   </xsl:template>
 
   <xsl:template match="request">
-    <div class="request">
-       <div class="method">
-         <xsl:value-of select="./@method"/>
-       </div>
-       <div class="url">
-         <xsl:value-of select="./url"/>
-       </div>
-       <div class="headers">
-         <xsl:for-each select="./headers/header">
-           <div class="header">
-             <div class="name">
-               <xsl:value-of select="./name"/>
-             </div>
-             <xsl:value-of select="."/>
-           </div>
-         </xsl:for-each>
-       </div>
-       <div class="body">
-         <xsl:value-of select="./body"/>
-       </div>
+    <div class="card">
+      <div class="card-header">
+        <xsl:value-of select="./@method"/>
+        <span class="text-muted">
+          (<xsl:value-of select="./@id"/>)
+        </span>
+        <br/>
+        <span style="font-family: monospace;">
+          <xsl:value-of select="./url"/>
+        </span>
+      </div>
+      <div class="card-body">
+        <xsl:apply-templates select="./headers"/>
+        <xsl:apply-templates select="./body"/>
+      </div>
     </div>
   </xsl:template>
 
   <xsl:template match="if">
-    <div>
-      <xsl:attribute name="class">
-        <xsl:choose>
-          <xsl:when
-            test= "following-sibling::*[1][self::elif] or following-sibling::*[1][self::else]">if-followed</xsl:when>
-          <xsl:otherwise>if</xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
-      <div class="block-title">If:</div>
-      <div class="condition">
-        <xsl:value-of select="./condition"/>
+    <xsl:attribute name="class">
+      <xsl:choose>
+        <xsl:when
+          test= "following-sibling::*[1][self::elif] or following-sibling::*[1][self::else]">if-followed</xsl:when>
+        <xsl:otherwise>if</xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
+    <div class="card">
+      <div class="card-header">
+        <span style="font-family: monospace;">
+          If: <xsl:value-of select="./condition"/>
+        </span>
+        <span class="text-muted">
+          (<xsl:value-of select="./@id"/>)
+        </span>
       </div>
-      <div class="block">
+      <div class="card-body">
         <xsl:apply-templates select="./block"/>
       </div>
     </div>
   </xsl:template>
 
   <xsl:template match="elif">
-    <div class="elif">
-      <div class="block-title">Elif:</div>
-      <div class="condition">
-        <xsl:value-of select="./condition"/>
+    <div class="card">
+      <div class="card-header">
+        <span style="font-family: monospace;">
+          Elif: <xsl:value-of select="./condition"/>
+        </span>
+        <span class="text-muted">
+          (<xsl:value-of select="./@id"/>)
+        </span>
       </div>
-      <div class="block">
+      <div class="card-body">
         <xsl:apply-templates select="./block"/>
       </div>
     </div>
   </xsl:template>
 
   <xsl:template match="else">
-    <div class="else">
-      <div class="block-title">Else:</div>
-      <div class="block">
+    <div class="card">
+      <div class="card-header">
+        <span style="font-family: monospace;">
+          Else:
+        </span>
+        <span class="text-muted">
+          (<xsl:value-of select="./@id"/>)
+        </span>
+      </div>
+      <div class="card-body">
         <xsl:apply-templates select="./block"/>
       </div>
     </div>
   </xsl:template>
 
   <xsl:template match="call">
-    <div class="call">
-      <div class="block-title">Call:</div>
-      <div class="procname">
+    <div class="card">
+      <div class="card-header">
+        Call:
         <xsl:value-of select="./procname"/>
+        <span class="text-muted">
+          (<xsl:value-of select="./@id"/>)
+        </span>
       </div>
-      <div class="data">
-        <xsl:for-each select="./data/form">
-          <div class="form">
-            <div class="block-title">Ref:</div>
-            <div class="ref">
-              <xsl:value-of select="./@ref"/>
-            </div>
-            <table class="input">
-              <tr>
-                <th>Name</th>
-                <th>Text</th>
-              </tr>
-              <xsl:for-each select="./input">
-                <tr>
-                  <td class="name">
-                    <xsl:value-of select="./@name"/>
-                  </td>
-                  <td>
-                    <xsl:value-of select="."/>
-                  </td>
-                </tr>
-              </xsl:for-each>
-            </table>
-          </div>
-        </xsl:for-each>
+      <div class="card-body">
+        <xsl:apply-templates select="./data"/>
       </div>
     </div>
   </xsl:template>
 
   <xsl:template match="input">
-    <div class="input">
-      <div class="name">
+    <tr>
+      <td>
         <xsl:value-of select="./@name"/>
-      </div>
-      <div class="type">
+      </td>
+      <td>
         <xsl:value-of select="./@type"/>
-      </div>
-      <div class="required">
+      </td>
+      <td>
         <xsl:value-of select="./@required"/>
-      </div>
-      <div class="hidden">
+      </td>
+      <td>
         <xsl:value-of select="./@hidden"/>
-      </div>
-      <div class="label">
+      </td>
+      <td>
         <xsl:value-of select="./@label"/>
-      </div>
-      <div class="placeholder">
+      </td>
+      <td>
         <xsl:value-of select="./@placeholder"/>
-      </div>
-      <div class="default">
+      </td>
+      <td>
         <xsl:value-of select="./@default"/>
-      </div>
-      <div class="regex">
+      </td>
+      <td>
         <xsl:value-of select="./@regex"/>
-      </div>
-      <div class="helper">
+      </td>
+      <td>
         <xsl:value-of select="./@helper"/>
-      </div>
-      <div class="provider">
+      </td>
+      <td>
         <xsl:value-of select="./@provider"/>
-      </div>
-      <div class="options">
+      </td>
+      <td>
         <xsl:apply-templates select="./options/option"/>
-      </div>
-      <xsl:apply-templates select="./dependencies"/>
-    </div>
+      </td>
+      <td>
+        <xsl:apply-templates select="./dependencies"/>
+      </td>
+      <td>
+        <xsl:value-of select="."/>
+      </td>
+    </tr>
   </xsl:template>
 
   <xsl:template match="dependencies">
-    <div class="dependencies">
-      <xsl:apply-templates select="./dep"/>
-    </div>
+    <span style="font-family: monospace;">
+      Dependecies: <xsl:value-of select="./dep"/>
+    </span>
   </xsl:template>
 
-  <xsl:template match="dep">
-    <div class="dep">
-      <xsl:value-of select="."/>
-    </div>
+  <xsl:template match="auth-filter">
+    <span style="font-family: monospace;">
+      <div>
+        Backend: <xsl:value-of select="./@backend"/>
+      </div>
+      <xsl:apply-templates select="./param"/>
+    </span>
   </xsl:template>
 
   <xsl:template match="exit">
@@ -229,44 +252,66 @@
   </xsl:template>
 
   <xsl:template match="node-info">
-    <div class="node-info">
-      <div class="name">
-        <text>Name: </text>
-        <xsl:value-of select="./name"/>
-      </div>
-      <div class="description">
-        <text>Description: </text>
-        <xsl:value-of select="./description"/>
-      </div>
-    </div>
+    <h5 class="card-title">
+      <xsl:value-of select="./name"/>
+    </h5>
+    <p class="card-text">
+      <xsl:value-of select="./description"/>
+    </p>
   </xsl:template>
 
   <xsl:template match="param">
-    <div class="param">
-      <div class="name">
+    <div class="card">
+      <div class="card-header">
         <xsl:value-of select="./@name"/>
       </div>
-      <div class="type">
-        <xsl:value-of select="./@type"/>
-      </div>
-      <div>
+      <div class="card-body">
         <xsl:value-of select="."/>
+        <span class="text-muted">
+          (<xsl:value-of select="./@type"/>)
+        </span>
       </div>
     </div>
   </xsl:template>
 
   <xsl:template match="form-array">
-    <div class="form-array">
+    <div class="card">
       <xsl:apply-templates select="./form"/>
     </div>
   </xsl:template>
 
   <xsl:template match="form">
-    <div class="form">
-      <div class="multiple">
-        <xsl:value-of select="./@multiple"/>
+    <div class="card">
+      <div class="card-header">
+        Form:
       </div>
-      <xsl:apply-templates select="./input"/>
+      <div class="card-body">
+        <xsl:value-of select="./@multiple"/>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Hidden</th>
+                <th>Label</th>
+                <th>Placeholder</th>
+                <th>Default</th>
+                <th>Regex</th>
+                <th>Helper</th>
+                <th>Provider</th>
+                <th>Options</th>
+                <th>Dependencies</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <xsl:apply-templates select="./input"/>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </xsl:template>
 
@@ -276,6 +321,51 @@
         <xsl:value-of select="./@value"/>
       </div>
     </div>
+  </xsl:template>
+
+  <xsl:template match="data">
+    <xsl:apply-templates select="./form"/>
+  </xsl:template>
+
+  <xsl:template match="headers">
+    <table
+      class="table"
+      style="font-family: monospace;"
+    >
+      <thead>
+        <tr>
+          <th>key</th>
+          <th>value</th>
+        </tr>
+      </thead>
+      <xsl:apply-templates select="./header"/>
+    </table>
+  </xsl:template>
+
+  <xsl:template match="header">
+    <tr>
+      <td>
+        <xsl:value-of select="./@name"/>:
+      </td>
+      <td>
+        <xsl:value-of select="."/>
+      </td>
+    </tr>
+  </xsl:template>
+
+  <xsl:template match="body">
+    <span style="font-family: monospace;">
+      <div class="container">
+        <div class="row">
+          <div class="col-1">
+            body:
+          </div>
+          <div class="col-auto">
+            <xsl:value-of select="."/>
+          </div>
+        </div>
+      </div>
+    </span>
   </xsl:template>
 
 </xsl:stylesheet>
