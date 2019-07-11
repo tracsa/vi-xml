@@ -17,7 +17,11 @@
       <auth-filter backend="anyone"></auth-filter>
       <form-array>
         <form id="mistery">
-          <input label="password" type="text" name="password"></input>
+          <input label="Password" type="text" name="password" required="true"></input>
+          <input label="Nickname" type="text" name="nickname" required="true"></input>
+        </form>
+        <form id="another_mistery">
+          <input label="Random Value" type="text" name="value"></input>
         </form>
       </form-array>
     </action>
